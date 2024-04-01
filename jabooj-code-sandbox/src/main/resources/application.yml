@@ -1,0 +1,5 @@
+server:
+  port: 8122
+#spring:
+#  datasource:
+#    password: 123456
