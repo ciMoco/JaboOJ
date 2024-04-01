@@ -1,0 +1,54 @@
+version: '3'
+services:
+  jabooj-back-gateway:
+    container_name: jabooj-back-gateway
+    build:
+      context: ./jabooj-back-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8101:8101"
+    networks:
+      - mynetwork
+
+  jabooj-back-user-service:
+    container_name: jabooj-back-user-service
+    build:
+      context: ./jabooj-back-user-service
+      dockerfile: Dockerfile
+    ports:
+      - "8102:8102"
+    networks:
+      - mynetwork
+    depends_on:
+      - jabooj-back-gateway
+
+  jabooj-back-question-service:
+    container_name: jabooj-back-question-service
+    build:
+      context: ./jabooj-back-question-service
+      dockerfile: Dockerfile
+    ports:
+      - "8103:8103"
+    networks:
+      - mynetwork
+    depends_on:
+      - jabooj-back-user-service
+      - jabooj-back-gateway
+
+  jabooj-back-judge-service:
+    container_name: jabooj-back-judge-service
+    build:
+      context: ./jabooj-back-judge-service
+      dockerfile: Dockerfile
+    ports:
+      - "8104:8104"
+    networks:
+      - mynetwork
+    depends_on:
+      - jabooj-back-user-service
+      - jabooj-back-question-service
+      - jabooj-back-gateway
+
+# 网络，不定义的话就是默认网络
+networks:
+  mynetwork:
