@@ -11,5 +11,3 @@ yarn install
 ```shell
 yarn run serve
 ```
-
-ll
